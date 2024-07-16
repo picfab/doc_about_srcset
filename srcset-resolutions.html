@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en-US">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Responsive HTML images demo</title>
+    <style>
+      img {
+        width: 100%;
+        max-width: 400px;
+      }
+    </style>
+
+  </head>
+
+  <body>
+    <img srcset="
+    ./img/1x.png,
+    ./img/2x 1.5x,
+    ./img/3x.png 2x
+      " src="./img/3x.png" alt="test" id="img" onload="showUrl()" />
+    <script>
+      function showUrl() {
+        const img = document.getElementById("img");
+        const p = document.createElement("p");
+        const fileName = img.currentSrc?.substring(
+          img.currentSrc.lastIndexOf("/"),
+        );
+        p.textContent = `Loaded: ${fileName}`;
+        document.body.appendChild(p);
+
+
+        const largeurIntrinseque = img.naturalWidth;
+        const hauteurIntrinseque = img.naturalHeight;
+
+        const w = document.createElement("p");
+        w.textContent = `Dimension Natural: ${largeurIntrinseque} px / ${hauteurIntrinseque} px`;
+        document.body.appendChild(w);
+
+
+        const w2 = document.createElement("p");
+        w2.textContent = `Dimension à l'écran: ${img.offsetWidth} px / ${img.offsetHeight} px`;
+        document.body.appendChild(w2);
+
+        const w3 = document.createElement("p");
+        w3.textContent = `Dimension réel: 1280 × 720`;
+        document.body.appendChild(w3);
+
+
+      }
+    </script>
+  </body>
+
+</html>

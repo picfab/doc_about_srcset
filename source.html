@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en-US">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Responsive HTML images demo</title>
+    <style>
+      img {
+        width: 100%;
+        max-width: 300px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <picture>
+      <source media="(max-width: 600px)" srcset="
+      ./img/1x-600.png 1x,
+      ./img/2x-600.png 2x,     
+      ./img/3x-600.png 3x">
+      <source media="(max-width: 1000px)" srcset="
+      ./img/1x-1000.png 1x,
+      ./img/2x-1000.png 2x,     
+      ./img/3x+1000.png 3x">
+      <source media="(min-width: 1001px)" srcset="
+      ./img/1x+1000.png 400w,
+      ./img/2x+1000.png 800w,     
+      ./img/3x+1000.png 1200w">
+      <img src="./img/3x+1000.png" alt="test">
+    </picture onload="showUrl()">
+
+    <script>
+      function showUrl() {
+        const img = document.getElementById("picture");
+        const p = document.createElement("p");
+        const fileName = img.currentSrc?.substring(
+          img.currentSrc.lastIndexOf("/"),
+        );
+        p.textContent = `Loaded: ${fileName}`;
+        document.body.appendChild(p);
+
+        const largeurIntrinseque = img.naturalWidth;
+        const hauteurIntrinseque = img.naturalHeight;
+
+        const w = document.createElement("p");
+        w.textContent = `Dimension fichier: ${largeurIntrinseque} px / ${hauteurIntrinseque} px`;
+        document.body.appendChild(w);
+
+
+        const w2 = document.createElement("p");
+        w2.textContent = `Dimension à l'écran: ${img.offsetWidth} px / ${img.offsetHeight} px`;
+        document.body.appendChild(w2);
+
+        const ecran = document.createElement("p");
+        ecran.textContent = `écran: ${window.innerWidth} px / ${window.innerHeight} px`;
+        document.body.appendChild(ecran);
+
+
+        const w3 = document.createElement("p");
+        w3.textContent = `Dimension réel: 1280 × 720`;
+        document.body.appendChild(w3);
+
+      }
+    </script>
+  </body>
+
+</html>
